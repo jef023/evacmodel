@@ -14,10 +14,16 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         tsunamievacmodel.cpp \
-    agents.cpp
+    agents.cpp \
+    grid.cpp
 
 HEADERS  += tsunamievacmodel.h \
     agents.h \
-    matrix/armadillo
+    grid.h
 
 FORMS    += tsunamievacmodel.ui
+
+unix:!macx: LIBS += -L$$PWD/matrix/linux_lib/ -larmadillo
+
+INCLUDEPATH += $$PWD/matrix
+DEPENDPATH += $$PWD/matrix
