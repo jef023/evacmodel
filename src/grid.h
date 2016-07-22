@@ -3,7 +3,6 @@
 #include "matrix/armadillo"
 #include <QObject>
 
-
 class Grid : public QObject
 {
     Q_OBJECT
