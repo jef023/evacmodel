@@ -13,8 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        tsunamievacmodel.cpp
+        tsunamievacmodel.cpp \
+    agents.cpp
 
-HEADERS  += tsunamievacmodel.h
+HEADERS  += tsunamievacmodel.h \
+    agents.h \
+    matrix/armadillo
 
 FORMS    += tsunamievacmodel.ui
