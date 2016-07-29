@@ -43,13 +43,17 @@ void TsunamiEvacModel::on_actionLoad_cost_grid_triggered()
     }
 
     QString temp;
+    Grid Test(this,myMat.size(),myMat.at(1).size());
+
     for(int i = 0; i < myMat.size(); i++){
         for(int j = 0; j < myMat.at(i).size(); j++){
+            Test.setValue(i,j,myMat.at(i).at(j).toDouble());
             temp.append(myMat.at(i).at(j));
             temp.append(" ");
         }
         temp.append("\n");
-        ui->textBrowser->append(temp);
     }
+    ui->textBrowser->append(temp);
+    QMatrix test;
 
 }
