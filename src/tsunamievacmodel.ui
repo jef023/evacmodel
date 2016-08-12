@@ -34,6 +34,7 @@
      <string>File</string>
     </property>
     <addaction name="actionLoad_cost_grid"/>
+    <addaction name="actionTest_config"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -49,6 +50,11 @@
   <action name="actionLoad_cost_grid">
    <property name="text">
     <string>Load cost grid</string>
+   </property>
+  </action>
+  <action name="actionTest_config">
+   <property name="text">
+    <string>Test config</string>
    </property>
   </action>
  </widget>

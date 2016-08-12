@@ -1,30 +1,32 @@
 #ifndef GRID_H
 #define GRID_H
-#include "matrix/armadillo"
+
 #include <QObject>
-#include <QPair>
-#include <QMap>
+#include <QVector>
+#include <limits>
+#include "node.h"
 
 class Grid : public QObject
 {
     Q_OBJECT
 public:
-    explicit Grid(QObject *parent = 0, int row = 0, int col = 0);
-    QPair<int,int>* currentPair;
-    QMap<QPair<int,int>*, double> cost;
-    void setValue(int row,int col, double value);
-    int nrow();
+    explicit Grid(int row, int col, QObject *parent = 0);
+    QVector< QVector<Node> > grid;
     int ncol();
-    void calcShortPath(int xp, int yp, int xs, int ys);
+    int nrow();
+    void setValue(int x, int y, double val);
+
+    QPair<int,int> leastDistNode();
+    void calcShortPath(int xp, int yp, int xs, int ys, QVector<QPair<int, int> > *path, QVector<double> *costdist);
+    void resetGrid();
 
 private:
-    int numrow;
-    int numcol;
+    int maxcol;
+    int maxrow;
 
 signals:
 
 public slots:
-
 };
 
 #endif // GRID_H

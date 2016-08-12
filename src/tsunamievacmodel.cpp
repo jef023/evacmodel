@@ -6,9 +6,12 @@ TsunamiEvacModel::TsunamiEvacModel(QWidget *parent) :
     ui(new Ui::TsunamiEvacModel)
 {
     ui->setupUi(this);
-    myGrid = new Grid;
     ui->statusBar->addWidget(&status);
     ui->mainToolBar->hide();
+    myConfig = new Config;
+    connect(myConfig,SIGNAL(accepted()),this,SLOT(ConfAcc()));
+    haveParams = false;
+
 }
 
 TsunamiEvacModel::~TsunamiEvacModel()
@@ -18,6 +21,13 @@ TsunamiEvacModel::~TsunamiEvacModel()
 
 void TsunamiEvacModel::setStatus(QString mstatus){
     status.setText(mstatus);
+}
+
+void TsunamiEvacModel::ConfAcc(){
+    if(!haveParams){
+        myParams = myConfig->myParams;
+        haveParams = true;
+    }
 }
 
 void TsunamiEvacModel::on_actionLoad_cost_grid_triggered()
@@ -43,17 +53,27 @@ void TsunamiEvacModel::on_actionLoad_cost_grid_triggered()
     }
 
     QString temp;
-    Grid Test(this,myMat.size(),myMat.at(1).size());
+    delete myGrid;
+    myGrid = new Grid(myMat.size(),myMat.at(1).size(),this);
 
     for(int i = 0; i < myMat.size(); i++){
         for(int j = 0; j < myMat.at(i).size(); j++){
-            Test.setValue(i,j,myMat.at(i).at(j).toDouble());
+
+            myGrid->setValue(i,j,myMat.at(i).at(j).toInt());
             temp.append(myMat.at(i).at(j));
             temp.append(" ");
         }
         temp.append("\n");
     }
     ui->textBrowser->append(temp);
-    QMatrix test;
+}
 
+void TsunamiEvacModel::on_actionTest_config_triggered()
+{
+    myConfig->exec();
+    QVector<double>  costdist;
+    QVector< QPair<int,int> > path;
+    myGrid->calcShortPath(myParams.iniX,myParams.iniY,myParams.finX,myParams.finY, &path, &costdist);
+    for (int i = 0; i < path.size(); i++)
+        ui->textBrowser->append("Path: " + QString::number(path.at(i).first) + "," + QString::number(path.at(i).second) + "  Distance: "+ QString::number(costdist.at(i)));
 }
