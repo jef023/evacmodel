@@ -76,4 +76,6 @@ void TsunamiEvacModel::on_actionTest_config_triggered()
     myGrid->calcShortPath(myParams.iniX,myParams.iniY,myParams.finX,myParams.finY, &path, &costdist);
     for (int i = 0; i < path.size(); i++)
         ui->textBrowser->append("Path: " + QString::number(path.at(i).first) + "," + QString::number(path.at(i).second) + "  Distance: "+ QString::number(costdist.at(i)));
+    haveParams = false;
+    ui->textBrowser->append("\n");
 }
